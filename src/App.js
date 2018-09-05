@@ -1,18 +1,23 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { withRouter, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 // layout components
 import Header from './components/layout/header'
 import Sidebar from './components/layout/sidebar'
 import Breadcrumbs from './components/breadcrumbs'
+import Notifications from './components/notifications'
+
+// hoc
+import FormWrapper from './components/formWrapper'
 
 // routes
 import About from './components/about'
 import Dashboard from './components/dashboard/index'
-import Error404 from './components/error/404'
-import Users from './components/users/users.container'
+//import Error404 from './components/error/404'
 import User from './components/users/user.container'
+import UsersContainer from './components/users/users.container'
 
 const StyledArticle = styled.article`
     padding: 100px 20px 0 260px;
@@ -21,6 +26,9 @@ const StyledArticle = styled.article`
 class App extends React.Component {
     
     render(){
+
+        const FormUser = FormWrapper(User)
+
         return (
             <div>
                 <Header/>
@@ -28,16 +36,23 @@ class App extends React.Component {
                 <Breadcrumbs/>           
                 <StyledArticle>                    
                     <Switch>
-                        <Route exact path='/' component={Dashboard}/>
-                        <Route exact path='/users' component={Users}/>
-                        <Route exact path='/users/:userId' component={User}/>                        
-                        <Route path='/about' component={About}/>
-                        <Route component={Error404} />
-                    </Switch>                
+                        <Route exact path='/' component={Dashboard}/>                        
+                        <Route exact path='/users' component={UsersContainer}/>
+                        <Route exact path="/users/:userId" component={FormUser}/>
+                        <Route exact path="/create-user" component={FormUser}/>
+                        <Route exact path='/about' component={About}/>                        
+                    </Switch>
                 </StyledArticle>
+                <Notifications errors={this.props.errors}/>
             </div>
         )
     }
 }
 
-export default App
+const mapStateToProps = state => {
+    return {
+        errors: state.errors
+    }
+}
+
+export default withRouter(connect(mapStateToProps, null)(App))

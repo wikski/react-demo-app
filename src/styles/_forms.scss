@@ -2,45 +2,25 @@ form {
     margin: $spacer * 2 0;
     max-width: 780px;
 }
-
 .form-control {
     
     &:focus {
+        border-color: $input-border-color;
         box-shadow: none;
-    }
-}
-
-.drag-section {
-    background-color: $gray-200;
-    margin-bottom: $spacer * 2;
-    padding: $spacer / 2;
-    
-    &:hover {
-        cursor: pointer;
-    }
-    img {
-        height: 140px;
-    }
-    svg {        
-        color: $gray-500;        
-        left: 50%;
-        position: absolute;
-        top: 30%;
-    }
-    p {
-        bottom: 30px;
-        color: $gray-700;
-        font-size: $font-size-lg;        
-        font-weight: bold;
-        left: 0;
-        margin: 0 auto;
-        position: absolute;
-        right: 0;
-        text-align: center;
-        width: 140px;        
     }
 }
 .btn-primary,
 .btn-secondary {
     color: white;
+}
+
+// react-day-picker overwrites
+.DayPickerInput {
+    display: block!important;
+}
+.DayPicker-Day--today {
+    color: $primary!important;
+}
+.DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+    background-color: lighten($primary, 27%)!important;
 }

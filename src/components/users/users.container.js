@@ -1,37 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { fetchUsers } from './../../actions/users.action'
+import UsersList from './usersList.component'
 
-import { fetchAllUsers } from './../../actions/users.action'
-import UsersList from './usersList'
-
-class UsersRead extends React.Component {
+class UsersContainer extends React.Component {
 
     constructor(props){
         super(props)
+                
+        this.props.fetchUsers()
+    }    
 
-        this.props.fetchUsers()        
-    }
-
-    render(){       
+    render(){              
         return (
             <section>
                 <h2>Users</h2>
-                <UsersList history={this.props.history} users={this.props.users}/>
+                <Button tag={Link} to="/create-user">Add user</Button>
+                <UsersList users={this.props.users}/>                
             </section>
         )
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    
-    return {
-        users: state.users
-    }
-}
-const mapDispatchToProps = dispatch => {    
-    return {
-        fetchUsers: () => dispatch(fetchAllUsers())
-    }
-}
+const mapStateToProps = state => ({
+    users: state.users.list
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersRead)
+const mapDispatchToProps = dispatch => ({    
+    fetchUsers: () => dispatch(fetchUsers())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

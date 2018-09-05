@@ -5,8 +5,7 @@ import {
     faUsers,
     faInfoCircle,
     faHome,
-    faChevronRight,
-    faCloudUploadAlt 
+    faChevronRight, 
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -15,5 +14,4 @@ library.add(
     faInfoCircle,
     faHome,
     faChevronRight,
-    faCloudUploadAlt
 )

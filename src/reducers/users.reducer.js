@@ -1,20 +1,26 @@
-const initialState = {
-    users: {
-        info: {},
-        results: [],
-    }
+const initialState = {    
+    list: [],
+    user: {},
 }
 
-const users = (state = initialState, action) => {
+export const users = (state = initialState, action) => {
     
     switch (action.type){
         
-        case 'FETCH_USERS':
-            return Object.assign(state.users, action.response.data)
+        case 'USERS_FETCH_SUCCESS':            
+
+            return Object.assign({}, state, { list: action.response.data })
+
+        case 'USER_FETCH_SUCCESS':            
+            
+            return Object.assign({}, state, { user: action.response.data })
+
+        case 'USER_CREATED':
+
+            return state
 
         default: 
+
             return state
     }
 }
-
-export default users
